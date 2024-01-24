@@ -2,21 +2,21 @@
 #include <fstream>
 using namespace std;
 const int ARRAY_MAX = 50;
-int numbers[ARRAY_MAX];
-int readFile(string namefile) {
+int readFile(string namefile, int &n, int numbers[]) {
     ifstream fileInput(namefile);
     if(fileInput.fail()) {
-        std::cout << "Failed to open this file " << std::endl;
+        cout << "Failed to open this file " << endl;
         return -1;
     }
-    int i(0);
+    int i = 0;
     while (!fileInput.eof())
     {
         fileInput >> numbers[i];
-        i++;
+        ++i;
     }
+    n = i;
     fileInput.close();
-    return i;
+    return 0;
 }
 void in(int numbers[],int n) {
     for(int i = 0; i < n; i++) {
@@ -38,8 +38,9 @@ void writeFile(int max, string filename) {
     fileOut.close();
 }
 int main() {
-    readFile("input.txt");
-    int n = readFile("input.txt");
+    int n;
+    int numbers[ARRAY_MAX];
+    readFile("input.txt",n,numbers);
     in(numbers,n);
     max(numbers,n);
     writeFile(max(numbers,n),"output.txt");
