@@ -1,0 +1,4 @@
+Employee.h : Chứa khai báo lớp (phương thức & thuộc tính)
+Employee.cpp : Định nghĩa các phương thức
+main.cpp : Chứa hàm main, khi chạy phải biên dịch từ file Employee.cpp với main.cpp
+// g++ -o main main.cpp Employee.cpp
