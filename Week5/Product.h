@@ -1,6 +1,5 @@
 #ifndef product_h
 #define product_h
-
 #include <iostream>
 #include <string>
 using namespace std;

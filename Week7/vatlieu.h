@@ -19,6 +19,11 @@ class Vattu {
         string getMaVattu();
         string getTenVattu();
         string getDonViTinh();
+        static vector<Vattu> getData(string filename, vector<Vattu>& vattus);
+        static void display(vector<Vattu> vattus);
+        static vector<Vattu> add(vector<Vattu>& vattus);
+        static void update(vector<Vattu>& vattus);
+        static void remove(vector<Vattu>& vattus);
 };
 class PhieuGiaoHang {
     string soPhieuGiao;
