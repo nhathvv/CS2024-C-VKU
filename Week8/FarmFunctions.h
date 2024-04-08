@@ -8,4 +8,4 @@ public:
     void deFoodForPets(std::vector<Pet*>, std::vector<std::string>);
     void makeSoundForPets(std::vector<Pet*>);
 };
-#endif // !_PETMANAGE_FARMFUNCTION_H
+#endif
