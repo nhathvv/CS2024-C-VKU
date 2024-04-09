@@ -2,12 +2,10 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include <algorithm>
 #include "chitietphieugiao.h"
 #include "vattu.h"
 #include "phieugiao.h"
 using namespace std;
-typedef pair<string, int> StringIntPair;
 ChiTietPhieuGiao::ChiTietPhieuGiao(){};
 ChiTietPhieuGiao::ChiTietPhieuGiao(string soPhieuGiao, string maVatTu, int soLuongGiao, int donGiaGiao)
 {
@@ -48,13 +46,14 @@ int ChiTietPhieuGiao::getDonGiaGiao()
 {
   return donGiaGiao;
 }
-vector<ChiTietPhieuGiao> ChiTietPhieuGiao::getData(string filename, vector<ChiTietPhieuGiao> &chitietphieugiaos)
+
+vector<ChiTietPhieuGiao> ChiTietPhieuGiao::getData(string filename, vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao)
 {
   ifstream file(filename);
   if (!file.is_open())
   {
     cout << "File not found!";
-    return chitietphieugiaos;
+    return dsChiTietPhieuGiao;
   }
   string soPhieuGiao, maVatTu, soLuongGiao, donGiaGiao;
   while (getline(file, soPhieuGiao, ',') &&
@@ -63,14 +62,15 @@ vector<ChiTietPhieuGiao> ChiTietPhieuGiao::getData(string filename, vector<ChiTi
          getline(file, donGiaGiao))
   {
     ChiTietPhieuGiao chitietphieugiao(soPhieuGiao, maVatTu, stoi(soLuongGiao), stoi(donGiaGiao));
-    chitietphieugiaos.push_back(chitietphieugiao);
+    dsChiTietPhieuGiao.push_back(chitietphieugiao);
   }
   file.close();
-  return chitietphieugiaos;
+  return dsChiTietPhieuGiao;
 }
-void ChiTietPhieuGiao::display(vector<ChiTietPhieuGiao> &chitietphieugiaos)
+
+void ChiTietPhieuGiao::display(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao)
 {
-  for (auto &chitietphieugiao : chitietphieugiaos)
+  for (auto &chitietphieugiao : dsChiTietPhieuGiao)
   {
     cout << "So phieu giao: " << chitietphieugiao.getSoPhieuGiao() << endl;
     cout << "Ma vat tu: " << chitietphieugiao.getMaVatTu() << endl;
@@ -79,7 +79,7 @@ void ChiTietPhieuGiao::display(vector<ChiTietPhieuGiao> &chitietphieugiaos)
     cout << "--------------------------------" << endl;
   }
 }
-vector<ChiTietPhieuGiao> ChiTietPhieuGiao::add(vector<ChiTietPhieuGiao> &chitietphieugiaos, vector<Vattu> &vattus, vector<PhieuGiao> &phieugiaos)
+vector<ChiTietPhieuGiao> ChiTietPhieuGiao::add(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao)
 {
   string soPhieuGiao, maVatTu;
   int soLuongGiao, donGiaGiao;
@@ -94,7 +94,7 @@ vector<ChiTietPhieuGiao> ChiTietPhieuGiao::add(vector<ChiTietPhieuGiao> &chitiet
   cin >> donGiaGiao;
   bool isVattuExist = false;
   bool isPhieuGiaoExist = false;
-  for (auto &vattu : vattus)
+  for (auto &vattu : dsVattu)
   {
     if (vattu.getMaVatu() == maVatTu)
     {
@@ -102,7 +102,7 @@ vector<ChiTietPhieuGiao> ChiTietPhieuGiao::add(vector<ChiTietPhieuGiao> &chitiet
       break;
     }
   }
-  for (auto &phieugiao : phieugiaos)
+  for (auto &phieugiao : dsPhieuGiao)
   {
     if (phieugiao.getSoPhieuGiao() == soPhieuGiao)
     {
@@ -113,23 +113,23 @@ vector<ChiTietPhieuGiao> ChiTietPhieuGiao::add(vector<ChiTietPhieuGiao> &chitiet
   if (!isVattuExist)
   {
     cout << "Ma vat tu khong ton tai!" << endl;
-    return chitietphieugiaos;
+    return dsChiTietPhieuGiao;
   }
   if (!isPhieuGiaoExist)
   {
     cout << "So phieu giao khong ton tai!" << endl;
-    return chitietphieugiaos;
+    return dsChiTietPhieuGiao;
   }
   ChiTietPhieuGiao chitietphieugiao(soPhieuGiao, maVatTu, soLuongGiao, donGiaGiao);
-  chitietphieugiaos.push_back(chitietphieugiao);
+  dsChiTietPhieuGiao.push_back(chitietphieugiao);
   ofstream file("chitietphieugiao.csv");
-  for (auto &chitietphieugiao : chitietphieugiaos)
+  for (auto &chitietphieugiao : dsChiTietPhieuGiao)
   {
     file << chitietphieugiao.getSoPhieuGiao() << "," << chitietphieugiao.getMaVatTu() << "," << chitietphieugiao.getSoLuongGiao() << "," << chitietphieugiao.getDonGiaGiao() << endl;
   }
-  return chitietphieugiaos;
+  return dsChiTietPhieuGiao;
 }
-vector<ChiTietPhieuGiao> ChiTietPhieuGiao::update(vector<ChiTietPhieuGiao> &chitietphieugiaos, vector<Vattu> &vattus, vector<PhieuGiao> &phieugiaos)
+vector<ChiTietPhieuGiao> ChiTietPhieuGiao::update(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao)
 {
   string soPhieuGiao, maVatTu;
   int soLuongGiao, donGiaGiao;
@@ -144,7 +144,7 @@ vector<ChiTietPhieuGiao> ChiTietPhieuGiao::update(vector<ChiTietPhieuGiao> &chit
   cin >> donGiaGiao;
   bool isVattuExist = false;
   bool isPhieuGiaoExist = false;
-  for (auto &vattu : vattus)
+  for (auto &vattu : dsVattu)
   {
     if (vattu.getMaVatu() == maVatTu)
     {
@@ -152,7 +152,7 @@ vector<ChiTietPhieuGiao> ChiTietPhieuGiao::update(vector<ChiTietPhieuGiao> &chit
       break;
     }
   }
-  for (auto &phieugiao : phieugiaos)
+  for (auto &phieugiao : dsPhieuGiao)
   {
     if (phieugiao.getSoPhieuGiao() == soPhieuGiao)
     {
@@ -163,14 +163,14 @@ vector<ChiTietPhieuGiao> ChiTietPhieuGiao::update(vector<ChiTietPhieuGiao> &chit
   if (!isVattuExist)
   {
     cout << "Ma vat tu khong ton tai!" << endl;
-    return chitietphieugiaos;
+    return dsChiTietPhieuGiao;
   }
   if (!isPhieuGiaoExist)
   {
     cout << "So phieu giao khong ton tai!" << endl;
-    return chitietphieugiaos;
+    return dsChiTietPhieuGiao;
   }
-  for (auto &chitietphieugiao : chitietphieugiaos)
+  for (auto &chitietphieugiao : dsChiTietPhieuGiao)
   {
     if (chitietphieugiao.getSoPhieuGiao() == soPhieuGiao && chitietphieugiao.getMaVatTu() == maVatTu)
     {
@@ -179,9 +179,9 @@ vector<ChiTietPhieuGiao> ChiTietPhieuGiao::update(vector<ChiTietPhieuGiao> &chit
       break;
     }
   }
-  return chitietphieugiaos;
+  return dsChiTietPhieuGiao;
 }
-vector<ChiTietPhieuGiao> ChiTietPhieuGiao::remove(vector<ChiTietPhieuGiao> &chitietphieugiaos, vector<Vattu> &vattus, vector<PhieuGiao> &phieugiaos)
+vector<ChiTietPhieuGiao> ChiTietPhieuGiao::remove(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao)
 {
   string soPhieuGiao, maVatTu;
   cin.ignore();
@@ -191,7 +191,7 @@ vector<ChiTietPhieuGiao> ChiTietPhieuGiao::remove(vector<ChiTietPhieuGiao> &chit
   getline(cin, maVatTu);
   bool isVattuExist = false;
   bool isPhieuGiaoExist = false;
-  for (auto &vattu : vattus)
+  for (auto &vattu : dsVattu)
   {
     if (vattu.getMaVatu() == maVatTu)
     {
@@ -199,7 +199,7 @@ vector<ChiTietPhieuGiao> ChiTietPhieuGiao::remove(vector<ChiTietPhieuGiao> &chit
       break;
     }
   }
-  for (auto &phieugiao : phieugiaos)
+  for (auto &phieugiao : dsPhieuGiao)
   {
     if (phieugiao.getSoPhieuGiao() == soPhieuGiao)
     {
@@ -210,18 +210,18 @@ vector<ChiTietPhieuGiao> ChiTietPhieuGiao::remove(vector<ChiTietPhieuGiao> &chit
   if (!isVattuExist)
   {
     cout << "Ma vat tu khong ton tai!" << endl;
-    return chitietphieugiaos;
+    return dsChiTietPhieuGiao;
   }
   if (!isPhieuGiaoExist)
   {
     cout << "So phieu giao khong ton tai!" << endl;
-    return chitietphieugiaos;
+    return dsChiTietPhieuGiao;
   }
-  for (auto it = chitietphieugiaos.begin(); it != chitietphieugiaos.end();)
+  for (auto it = dsChiTietPhieuGiao.begin(); it != dsChiTietPhieuGiao.end();)
   {
     if (it->getSoPhieuGiao() == soPhieuGiao && it->getMaVatTu() == maVatTu)
     {
-      it = chitietphieugiaos.erase(it);
+      it = dsChiTietPhieuGiao.erase(it);
     }
     else
     {
@@ -229,123 +229,24 @@ vector<ChiTietPhieuGiao> ChiTietPhieuGiao::remove(vector<ChiTietPhieuGiao> &chit
     }
   }
   ofstream file("chitietphieugiao.csv");
-  for (auto &chitietphieugiao : chitietphieugiaos)
+  for (auto &chitietphieugiao : dsChiTietPhieuGiao)
   {
     file << chitietphieugiao.getSoPhieuGiao() << "," << chitietphieugiao.getMaVatTu() << "," << chitietphieugiao.getSoLuongGiao() << "," << chitietphieugiao.getDonGiaGiao() << endl;
   }
   file.close();
-  return chitietphieugiaos;
+  return dsChiTietPhieuGiao;
 }
-void ChiTietPhieuGiao::totalAmount(vector<ChiTietPhieuGiao> &chitietphieugiaos, vector<Vattu> &vattus, vector<PhieuGiao> &phieugiaos)
-{
-  string soPhieuGiao;
-  cout << "Nhap so phieu giao: ";
-  cin >> soPhieuGiao;
-  bool isPhieuGiaoExist = false;
-  for (auto &phieugiao : phieugiaos)
-  {
-    if (phieugiao.getSoPhieuGiao() == soPhieuGiao)
-    {
-      isPhieuGiaoExist = true;
-      break;
-    }
-  }
-  if (!isPhieuGiaoExist)
-  {
-    cout << "So phieu giao khong ton tai!" << endl;
-    return;
-  }
-  int totalAmount = 0;
-  for (auto &chitietphieugiao : chitietphieugiaos)
-  {
-    if (chitietphieugiao.getSoPhieuGiao() == soPhieuGiao)
-    {
-      for (auto &vattu : vattus)
-      {
-        if (vattu.getMaVatu() == chitietphieugiao.getMaVatTu())
-        {
-          totalAmount += chitietphieugiao.getSoLuongGiao() * chitietphieugiao.getDonGiaGiao();
-          break;
-        }
-      }
-    }
-  }
-  cout << "Tong so tien cua phieu giao " << soPhieuGiao << " la: " << totalAmount << endl;
-}
-void ChiTietPhieuGiao::totalAmountByTime(vector<ChiTietPhieuGiao> &chitietphieugiaos, vector<Vattu> &vattus, vector<PhieuGiao> &phieugiaos)
-{
-  string startTime, endTime;
-  cout << "Nhap thoi gian bat dau: ";
-  cin >> startTime;
-  cout << "Nhap thoi gian ket thuc: ";
-  cin >> endTime;
-  for (auto &phieugiao : phieugiaos)
-  {
-    if (phieugiao.getNgayGiao() >= startTime && phieugiao.getNgayGiao() <= endTime)
-    {
-      cout << "So phieu giao: " << phieugiao.getSoPhieuGiao() << endl;
-      cout << "Ngay giao: " << phieugiao.getNgayGiao() << endl;
-      cout << "Noi giao: " << phieugiao.getNoiGiao() << endl;
-      int totalAmount = 0;
-      for (auto &chitietphieugiao : chitietphieugiaos)
-      {
-        if (chitietphieugiao.getSoPhieuGiao() == phieugiao.getSoPhieuGiao())
-        {
-          for (auto &vattu : vattus)
-          {
-            if (vattu.getMaVatu() == chitietphieugiao.getMaVatTu())
-            {
-              totalAmount += chitietphieugiao.getSoLuongGiao() * chitietphieugiao.getDonGiaGiao();
-              break;
-            }
-          }
-        }
-      }
-      cout << "Tong so tien: " << totalAmount << endl;
-      cout << "--------------------------------" << endl;
-    }
-  }
-}
-void ChiTietPhieuGiao::totalAmountByTimeRange(vector<ChiTietPhieuGiao> &chitietphieugiaos, vector<Vattu> &vattus, vector<PhieuGiao> &phieugiaos)
-{
-  string startTime, endTime;
-  cout << "Nhap thoi gian bat dau: ";
-  cin >> startTime;
-  cout << "Nhap thoi gian ket thuc: ";
-  cin >> endTime;
-  int totalAmount = 0;
-  for (auto &phieugiao : phieugiaos)
-  {
-    if (phieugiao.getNgayGiao() >= startTime && phieugiao.getNgayGiao() <= endTime)
-    {
-      for (auto &chitietphieugiao : chitietphieugiaos)
-      {
-        if (chitietphieugiao.getSoPhieuGiao() == phieugiao.getSoPhieuGiao())
-        {
-          for (auto &vattu : vattus)
-          {
-            if (vattu.getMaVatu() == chitietphieugiao.getMaVatTu())
-            {
-              totalAmount += chitietphieugiao.getSoLuongGiao() * chitietphieugiao.getDonGiaGiao();
-              break;
-            }
-          }
-        }
-      }
-    }
-  }
-  cout << "Tong so tien: " << totalAmount << endl;
-}
-void ChiTietPhieuGiao::backup(vector<ChiTietPhieuGiao> &chitietphieugiaos)
+
+void ChiTietPhieuGiao::backup(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao)
 {
   ofstream file("chitietphieugiao_backup.csv");
-  for (auto &chitietphieugiao : chitietphieugiaos)
+  for (auto &chitietphieugiao : dsChiTietPhieuGiao)
   {
     file << chitietphieugiao.getSoPhieuGiao() << "," << chitietphieugiao.getMaVatTu() << "," << chitietphieugiao.getSoLuongGiao() << "," << chitietphieugiao.getDonGiaGiao() << endl;
   }
   file.close();
 }
-void ChiTietPhieuGiao::restore(vector<ChiTietPhieuGiao> &chitietphieugiaos)
+void ChiTietPhieuGiao::restore(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao)
 {
   ifstream file("chitietphieugiao_backup.csv");
   if (!file.is_open())
@@ -360,7 +261,7 @@ void ChiTietPhieuGiao::restore(vector<ChiTietPhieuGiao> &chitietphieugiaos)
          getline(file, donGiaGiao))
   {
     ChiTietPhieuGiao chitietphieugiao(soPhieuGiao, maVatTu, stoi(soLuongGiao), stoi(donGiaGiao));
-    chitietphieugiaos.push_back(chitietphieugiao);
+    dsChiTietPhieuGiao.push_back(chitietphieugiao);
     ofstream file("chitietphieugiao.csv", ios::app);
     file << soPhieuGiao << "," << maVatTu << "," << soLuongGiao << "," << donGiaGiao << endl;
   }

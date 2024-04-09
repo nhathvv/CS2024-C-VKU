@@ -8,17 +8,21 @@
 using namespace std;
 int main()
 {
-  vector<Vattu> vattus;
-  vector<PhieuGiao> phieugiaos;
-  vector<ChiTietPhieuGiao> chitietphieugiaos;
-  vattus = Vattu::getData("vattu.csv", vattus);
-  phieugiaos = PhieuGiao::getData("phieugiao.csv", phieugiaos);
-  chitietphieugiaos = ChiTietPhieuGiao::getData("chitietphieugiao.csv", chitietphieugiaos);
+  vector<Vattu> dsVattu;
+  vector<PhieuGiao> dsPhieuGiao;
+  vector<ChiTietPhieuGiao> dsChiTietPhieuGiao;
+  Vattu vattus;
+  PhieuGiao phieugiaos;
+  ChiTietPhieuGiao chitietphieugiaos;
+  dsVattu = vattus.getData("vattu.csv", dsVattu);
+  dsPhieuGiao = phieugiaos.getData("phieugiao.csv", dsPhieuGiao);
+  dsChiTietPhieuGiao = chitietphieugiaos.getData("chitietphieugiao.csv", dsChiTietPhieuGiao);
   int choice;
   int subChoice;
   while (true)
   {
     cout << "1. Thêm, sửa, xóa, đọc các bảng dữ liệu" << endl;
+    cout << "2. N vật tư có giá cao nhất" << endl;
     cout << "3. Tổng tiền của một phiếu giao" << endl;
     cout << "4. Tổng tiền của các phiếu giao trong khoảng thời gian" << endl;
     cout << "5. Vật tư bán chạy nhất" << endl;
@@ -36,24 +40,24 @@ int main()
       switch (subChoice)
       {
       case 1:
-        cout << "1. Thêm" << endl;
-        cout << "2. Sửa" << endl;
-        cout << "3. Xóa" << endl;
-        cout << "4. Đọc" << endl;
+        cout << "1. Thêm vật tư" << endl;
+        cout << "2. Sửa vật tư" << endl;
+        cout << "3. Xóa vật tư" << endl;
+        cout << "4. Hiển thị vật tư" << endl;
         cin >> subChoice;
         switch (subChoice)
         {
         case 1:
-          Vattu::add(vattus);
+          vattus.add(dsVattu);
           break;
         case 2:
-          Vattu::update(vattus);
+          vattus.update(dsVattu);
           break;
         case 3:
-          Vattu::remove(vattus);
+          vattus.remove(dsVattu);
           break;
         case 4:
-          Vattu::display(vattus);
+          vattus.display(dsVattu);
           break;
         default:
           cout << "Invalid choice!" << endl;
@@ -61,24 +65,24 @@ int main()
         break;
       case 2:
       {
-        cout << "1. Thêm" << endl;
-        cout << "2. Sửa" << endl;
-        cout << "3. Xóa" << endl;
-        cout << "4. Đọc" << endl;
+        cout << "1. Thêm phiếu giao" << endl;
+        cout << "2. Sửa phiếu giao" << endl;
+        cout << "3. Xóa phiếu giao" << endl;
+        cout << "4. Đọc phiếu giao" << endl;
         cin >> subChoice;
         switch (subChoice)
         {
         case 1:
-          PhieuGiao::add(phieugiaos);
+          phieugiaos.add(dsPhieuGiao);
           break;
         case 2:
-          PhieuGiao::update(phieugiaos);
+          phieugiaos.update(dsPhieuGiao);
           break;
         case 3:
-          PhieuGiao::remove(phieugiaos);
+          phieugiaos.remove(dsPhieuGiao);
           break;
         case 4:
-          PhieuGiao::display(phieugiaos);
+          phieugiaos.display(dsPhieuGiao);
           break;
         default:
           cout << "Invalid choice!" << endl;
@@ -86,24 +90,24 @@ int main()
         break;
       case 3:
       {
-        cout << "1. Thêm" << endl;
-        cout << "2. Sửa" << endl;
-        cout << "3. Xóa" << endl;
-        cout << "4. Đọc" << endl;
+        cout << "1. Thêm chi tiết phiếu giao" << endl;
+        cout << "2. Sửa chi tiết phiếu giao" << endl;
+        cout << "3. Xóa chi tiết phiếu giao" << endl;
+        cout << "4. Hiển thị" << endl;
         cin >> subChoice;
         switch (subChoice)
         {
         case 1:
-          ChiTietPhieuGiao::add(chitietphieugiaos, vattus, phieugiaos);
+          chitietphieugiaos.add(dsChiTietPhieuGiao, dsVattu, dsPhieuGiao);
           break;
         case 2:
-          ChiTietPhieuGiao::update(chitietphieugiaos, vattus, phieugiaos);
+          chitietphieugiaos.update(dsChiTietPhieuGiao, dsVattu, dsPhieuGiao);
           break;
         case 3:
-          ChiTietPhieuGiao::remove(chitietphieugiaos, vattus, phieugiaos);
+          chitietphieugiaos.remove(dsChiTietPhieuGiao, dsVattu, dsPhieuGiao);
           break;
         case 4:
-          ChiTietPhieuGiao::display(chitietphieugiaos);
+          chitietphieugiaos.display(dsChiTietPhieuGiao);
           break;
         default:
           cout << "Invalid choice!" << endl;
@@ -112,24 +116,30 @@ int main()
       }
       }
       }
+      break;
+    case 2:
+    {
+      chitietphieugiaos.topNVattuByPrice(dsChiTietPhieuGiao, dsVattu);
+      break;
+    }
     case 3:
     {
-      ChiTietPhieuGiao::totalAmount(chitietphieugiaos, vattus, phieugiaos);
+      chitietphieugiaos.totalAmount(dsChiTietPhieuGiao, dsVattu, dsPhieuGiao);
       break;
     }
     case 4:
     {
-      ChiTietPhieuGiao::totalAmountByTime(chitietphieugiaos, vattus, phieugiaos);
+      chitietphieugiaos.totalAmountByTime(dsChiTietPhieuGiao, dsVattu, dsPhieuGiao);
       break;
     }
     case 5:
     {
-      // ChiTietPhieuGiao::mostSoldSupplies(chitietphieugiaos, vattus, phieugiaos);
+      chitietphieugiaos.topNVattuBySL(dsChiTietPhieuGiao, dsVattu);
       break;
     }
     case 6:
     {
-      ChiTietPhieuGiao::totalAmountByTimeRange(chitietphieugiaos, vattus, phieugiaos);
+      chitietphieugiaos.totalAmountByTimeRange(dsChiTietPhieuGiao, dsVattu, dsPhieuGiao);
       break;
     }
     case 7:
@@ -141,13 +151,13 @@ int main()
       switch (subChoice)
       {
       case 1:
-        Vattu::backup(vattus);
+        vattus.backup(dsVattu);
         break;
       case 2:
-        PhieuGiao::backup(phieugiaos);
+        phieugiaos.backup(dsPhieuGiao);
         break;
       case 3:
-        ChiTietPhieuGiao::backup(chitietphieugiaos);
+        chitietphieugiaos.backup(dsChiTietPhieuGiao);
         break;
       default:
         cout << "Invalid choice!" << endl;
@@ -164,13 +174,13 @@ int main()
       switch (subChoice)
       {
       case 1:
-        Vattu::restore(vattus);
+        vattus.restore(dsVattu);
         break;
       case 2:
-        PhieuGiao::restore(phieugiaos);
+        phieugiaos.restore(dsPhieuGiao);
         break;
       case 3:
-        ChiTietPhieuGiao::restore(chitietphieugiaos);
+        chitietphieugiaos.restore(dsChiTietPhieuGiao);
         break;
       default:
         cout << "Invalid choice!" << endl;

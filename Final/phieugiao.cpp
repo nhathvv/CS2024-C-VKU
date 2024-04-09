@@ -46,26 +46,26 @@ string PhieuGiao::getMaKH()
   return maKH;
 }
 
-vector<PhieuGiao> PhieuGiao::getData(string filename, vector<PhieuGiao> &phieugiaos)
+vector<PhieuGiao> PhieuGiao::getData(string filename, vector<PhieuGiao> &dsPhieuGiao)
 {
   ifstream file(filename);
   if (!file.is_open())
   {
     cout << "File not found!";
-    return phieugiaos;
+    return dsPhieuGiao;
   }
   string soPhieuGiao, ngayGiao, noiGiao, maKH;
   while (getline(file, soPhieuGiao, ',') && getline(file, ngayGiao, ',') && getline(file, noiGiao, ',') && getline(file, maKH, '\n'))
   {
     PhieuGiao phieugiao(soPhieuGiao, ngayGiao, noiGiao, maKH);
-    phieugiaos.push_back(phieugiao);
+    dsPhieuGiao.push_back(phieugiao);
   }
   file.close();
-  return phieugiaos;
+  return dsPhieuGiao;
 }
-void PhieuGiao::display(vector<PhieuGiao> &phieugiaos)
+void PhieuGiao::display(vector<PhieuGiao> &dsPhieuGiao)
 {
-  for (auto &phieugiao : phieugiaos)
+  for (auto &phieugiao : dsPhieuGiao)
   {
     cout << "So phieu giao: " << phieugiao.getSoPhieuGiao() << endl;
     cout << "Ngay giao: " << phieugiao.getNgayGiao() << endl;
@@ -74,7 +74,7 @@ void PhieuGiao::display(vector<PhieuGiao> &phieugiaos)
     cout << "-------------------" << endl;
   }
 }
-vector<PhieuGiao> PhieuGiao::add(vector<PhieuGiao> &phieugiaos)
+vector<PhieuGiao> PhieuGiao::add(vector<PhieuGiao> &dsPhieuGiao)
 {
   string soPhieuGiao, ngayGiao, noiGiao, maKH;
   cin.ignore();
@@ -87,19 +87,19 @@ vector<PhieuGiao> PhieuGiao::add(vector<PhieuGiao> &phieugiaos)
   cout << "Nhap ma khach hang: ";
   getline(cin, maKH);
   PhieuGiao phieugiao(soPhieuGiao, ngayGiao, noiGiao, maKH);
-  phieugiaos.push_back(phieugiao);
+  dsPhieuGiao.push_back(phieugiao);
   ofstream file("phieugiao.csv", ios::app);
   file << soPhieuGiao << "," << ngayGiao << "," << noiGiao << "," << maKH << endl;
   file.close();
-  return phieugiaos;
+  return dsPhieuGiao;
 }
-vector<PhieuGiao> PhieuGiao::update(vector<PhieuGiao> &phieugiaos)
+vector<PhieuGiao> PhieuGiao::update(vector<PhieuGiao> &dsPhieuGiao)
 {
   string soPhieuGiao, ngayGiao, noiGiao, maKH;
   cin.ignore();
   cout << "Nhap so phieu giao can sua: ";
   getline(cin, soPhieuGiao);
-  for (auto &phieugiao : phieugiaos)
+  for (auto &phieugiao : dsPhieuGiao)
   {
     if (phieugiao.getSoPhieuGiao() == soPhieuGiao)
     {
@@ -113,28 +113,28 @@ vector<PhieuGiao> PhieuGiao::update(vector<PhieuGiao> &phieugiaos)
       phieugiao.setNoiGiao(noiGiao);
       phieugiao.setMaKH(maKH);
       ofstream file("phieugiao.csv");
-      for (auto &phieugiao : phieugiaos)
+      for (auto &phieugiao : dsPhieuGiao)
       {
         file << phieugiao.getSoPhieuGiao() << "," << phieugiao.getNgayGiao() << "," << phieugiao.getNoiGiao() << "," << phieugiao.getMaKH() << endl;
       }
       file.close();
     }
   }
-  return phieugiaos;
+  return dsPhieuGiao;
 }
-vector<PhieuGiao> PhieuGiao::remove(vector<PhieuGiao> &phieugiaos)
+vector<PhieuGiao> PhieuGiao::remove(vector<PhieuGiao> &dsPhieuGiao)
 {
   string soPhieuGiao;
   cin.ignore();
   cout << "Nhap so phieu giao can xoa: ";
   getline(cin, soPhieuGiao);
-  for (auto it = phieugiaos.begin(); it != phieugiaos.end();)
+  for (auto it = dsPhieuGiao.begin(); it != dsPhieuGiao.end();)
   {
     if (it->getSoPhieuGiao() == soPhieuGiao)
     {
-      it = phieugiaos.erase(it);
+      it = dsPhieuGiao.erase(it);
       ofstream file("phieugiao.csv");
-      for (auto &phieugiao : phieugiaos)
+      for (auto &phieugiao : dsPhieuGiao)
       {
         file << phieugiao.getSoPhieuGiao() << "," << phieugiao.getNgayGiao() << "," << phieugiao.getNoiGiao() << "," << phieugiao.getMaKH() << endl;
       }
@@ -144,18 +144,18 @@ vector<PhieuGiao> PhieuGiao::remove(vector<PhieuGiao> &phieugiaos)
       it++;
     }
   }
-  return phieugiaos;
+  return dsPhieuGiao;
 }
-void PhieuGiao::backup(vector<PhieuGiao> &phieugiaos)
+void PhieuGiao::backup(vector<PhieuGiao> &dsPhieuGiao)
 {
   ofstream file("phieugiao.backup.csv");
-  for (auto &phieugiao : phieugiaos)
+  for (auto &phieugiao : dsPhieuGiao)
   {
     file << phieugiao.getSoPhieuGiao() << "," << phieugiao.getNgayGiao() << "," << phieugiao.getNoiGiao() << "," << phieugiao.getMaKH() << endl;
   }
   file.close();
 }
-void PhieuGiao::restore(vector<PhieuGiao> &phieugiaos)
+void PhieuGiao::restore(vector<PhieuGiao> &dsPhieuGiao)
 {
   ifstream file("phieugiao.backup.csv");
   if (!file.is_open())
@@ -167,10 +167,9 @@ void PhieuGiao::restore(vector<PhieuGiao> &phieugiaos)
   while (getline(file, soPhieuGiao, ',') && getline(file, ngayGiao, ',') && getline(file, noiGiao, ',') && getline(file, maKH, '\n'))
   {
     PhieuGiao phieugiao(soPhieuGiao, ngayGiao, noiGiao, maKH);
-    phieugiaos.push_back(phieugiao);
+    dsPhieuGiao.push_back(phieugiao);
     ofstream file("phieugiao.csv", ios::app);
     file << soPhieuGiao << "," << ngayGiao << "," << noiGiao << "," << maKH << endl;
-    file.close();
   }
   file.close();
 }

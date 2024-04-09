@@ -23,12 +23,12 @@ public:
   string getNoiGiao();
   string getMaKH();
 
-  static vector<PhieuGiao> getData(string filename, vector<PhieuGiao> &phieugiaos);
-  static void display(vector<PhieuGiao> &phieugiaos);
-  static vector<PhieuGiao> add(vector<PhieuGiao> &phieugiaos);
-  static vector<PhieuGiao> update(vector<PhieuGiao> &phieugiaos);
-  static vector<PhieuGiao> remove(vector<PhieuGiao> &phieugiaos);
-  static void backup(vector<PhieuGiao> &phieugiaos);
-  static void restore(vector<PhieuGiao> &phieugiaos);
+  vector<PhieuGiao> getData(string filename, vector<PhieuGiao> &dsPhieuGiao);
+  void display(vector<PhieuGiao> &dsPhieuGiao);
+  vector<PhieuGiao> add(vector<PhieuGiao> &dsPhieuGiao);
+  vector<PhieuGiao> update(vector<PhieuGiao> &dsPhieuGiao);
+  vector<PhieuGiao> remove(vector<PhieuGiao> &dsPhieuGiao);
+  void backup(vector<PhieuGiao> &dsPhieuGiao);
+  void restore(vector<PhieuGiao> &dsPhieuGiao);
 };
 #endif

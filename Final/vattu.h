@@ -20,13 +20,12 @@ public:
   string getTenVatu();
   string getDonViTinh();
 
-  static vector<Vattu> getData(string filename, vector<Vattu> &vattus);
-  static void display(vector<Vattu> &vattus);
-  static vector<Vattu> add(vector<Vattu> &vattus);
-  static vector<Vattu> update(vector<Vattu> &vattus);
-  static vector<Vattu> remove(vector<Vattu> &vattus);
-  // Build data backup and restore features
-  static void backup(vector<Vattu> &vattus);
-  static void restore(vector<Vattu> &vattus);
+  vector<Vattu> getData(string filename, vector<Vattu> &dsVattu);
+  void display(vector<Vattu> &dsVattu);
+  vector<Vattu> add(vector<Vattu> &dsVattu);
+  vector<Vattu> update(vector<Vattu> &dsVattu);
+  vector<Vattu> remove(vector<Vattu> &dsVattu);
+  void backup(vector<Vattu> &dsVattu);
+  void restore(vector<Vattu> &dsVattu);
 };
 #endif

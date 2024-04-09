@@ -5,6 +5,8 @@
     "istream": "cpp",
     "iostream": "cpp",
     "ostream": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "__split_buffer": "cpp",
+    "string": "cpp"
   }
 }
