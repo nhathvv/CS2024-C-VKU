@@ -217,15 +217,11 @@ vector<ChiTietPhieuGiao> ChiTietPhieuGiao::remove(vector<ChiTietPhieuGiao> &dsCh
     cout << "So phieu giao khong ton tai!" << endl;
     return dsChiTietPhieuGiao;
   }
-  for (auto it = dsChiTietPhieuGiao.begin(); it != dsChiTietPhieuGiao.end();)
+  for (auto it = dsChiTietPhieuGiao.begin(); it != dsChiTietPhieuGiao.end();it++)
   {
     if (it->getSoPhieuGiao() == soPhieuGiao && it->getMaVatTu() == maVatTu)
     {
       it = dsChiTietPhieuGiao.erase(it);
-    }
-    else
-    {
-      ++it;
     }
   }
   ofstream file("chitietphieugiao.csv");

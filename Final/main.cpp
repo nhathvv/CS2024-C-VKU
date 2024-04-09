@@ -5,6 +5,7 @@
 #include "vattu.h"
 #include "phieugiao.h"
 #include "chitietphieugiao.h"
+#include "functions.h"
 using namespace std;
 int main()
 {
@@ -119,27 +120,27 @@ int main()
       break;
     case 2:
     {
-      chitietphieugiaos.topNVattuByPrice(dsChiTietPhieuGiao, dsVattu);
+     topNVattuByPrice(dsChiTietPhieuGiao, dsVattu);
       break;
     }
     case 3:
     {
-      chitietphieugiaos.totalAmount(dsChiTietPhieuGiao, dsVattu, dsPhieuGiao);
+     totalAmount(dsChiTietPhieuGiao, dsVattu, dsPhieuGiao);
       break;
     }
     case 4:
     {
-      chitietphieugiaos.totalAmountByTime(dsChiTietPhieuGiao, dsVattu, dsPhieuGiao);
+     totalAmountByTime(dsChiTietPhieuGiao, dsVattu, dsPhieuGiao);
       break;
     }
     case 5:
     {
-      chitietphieugiaos.topNVattuBySL(dsChiTietPhieuGiao, dsVattu);
+     topNVattuBySL(dsChiTietPhieuGiao, dsVattu);
       break;
     }
     case 6:
     {
-      chitietphieugiaos.totalAmountByTimeRange(dsChiTietPhieuGiao, dsVattu, dsPhieuGiao);
+     totalAmountByTimeRange(dsChiTietPhieuGiao, dsVattu, dsPhieuGiao);
       break;
     }
     case 7:

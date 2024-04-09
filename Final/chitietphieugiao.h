@@ -33,12 +33,7 @@ public:
  vector<ChiTietPhieuGiao> add(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao);
  vector<ChiTietPhieuGiao> update(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao);
  vector<ChiTietPhieuGiao> remove(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao);
-
-  void totalAmount(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao);
-  void totalAmountByTime(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao);
-  void totalAmountByTimeRange(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao);
-  void topNVattuBySL(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu);
-  void topNVattuByPrice(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu);
+  
   void backup(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao);
   void restore(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao);
 };

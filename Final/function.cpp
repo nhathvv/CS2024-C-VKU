@@ -10,7 +10,7 @@ using namespace std;
 bool compareSecond(const std::pair<string, int> &a, const std::pair<string, int> &b) {
     return a.second > b.second;
 }
-void ChiTietPhieuGiao::topNVattuByPrice(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu)
+void topNVattuByPrice(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu)
 {
   int n;
   cout << "Nhap so luong vat tu co gia cao nhat: ";
@@ -18,15 +18,15 @@ void ChiTietPhieuGiao::topNVattuByPrice(vector<ChiTietPhieuGiao> &dsChiTietPhieu
   vector<pair<string, int> > mostExpensiveItems;
   for (auto &vattu : dsVattu)
   {
-    int totalAmount = 0;
+    int result = 0;
     for (auto &chitietphieugiao : dsChiTietPhieuGiao)
     {
       if (chitietphieugiao.getMaVatTu() == vattu.getMaVatu())
       {
-        totalAmount = chitietphieugiao.getDonGiaGiao();
+        result = chitietphieugiao.getDonGiaGiao();
       }
     }
-    mostExpensiveItems.push_back(make_pair(vattu.getMaVatu(), totalAmount));
+    mostExpensiveItems.push_back(make_pair(vattu.getMaVatu(), result));
   }
   sort(mostExpensiveItems.begin(), mostExpensiveItems.end(), compareSecond);
 
@@ -38,7 +38,7 @@ void ChiTietPhieuGiao::topNVattuByPrice(vector<ChiTietPhieuGiao> &dsChiTietPhieu
   }
 }
 
-void ChiTietPhieuGiao::totalAmount(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao)
+void totalAmount(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao)
 {
   string soPhieuGiao;
   cout << "Nhap so phieu giao: ";
@@ -75,7 +75,7 @@ void ChiTietPhieuGiao::totalAmount(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao,
   cout << "Tong so tien cua phieu giao " << soPhieuGiao << " la: " << totalAmount << endl;
 }
 
-void ChiTietPhieuGiao::totalAmountByTime(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao)
+void totalAmountByTime(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao)
 {
   string startTime, endTime;
   cout << "Nhap thoi gian bat dau: ";
@@ -84,6 +84,7 @@ void ChiTietPhieuGiao::totalAmountByTime(vector<ChiTietPhieuGiao> &dsChiTietPhie
   cin >> endTime;
   for (auto &phieugiao : dsPhieuGiao)
   {
+    // boost::date_time
     if (phieugiao.getNgayGiao() >= startTime && phieugiao.getNgayGiao() <= endTime)
     {
       cout << "So phieu giao: " << phieugiao.getSoPhieuGiao() << endl;
@@ -110,7 +111,7 @@ void ChiTietPhieuGiao::totalAmountByTime(vector<ChiTietPhieuGiao> &dsChiTietPhie
   }
 }
 
-void ChiTietPhieuGiao::topNVattuBySL(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu)
+void topNVattuBySL(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu)
 {
   int n;
   cout << "Nhap so luong vat tu ban chay nhat: ";
@@ -118,15 +119,15 @@ void ChiTietPhieuGiao::topNVattuBySL(vector<ChiTietPhieuGiao> &dsChiTietPhieuGia
   vector<pair<string, int> > mostSoldItems;
   for (auto &vattu : dsVattu)
   {
-    int totalAmount = 0;
+    int result = 0;
     for (auto &chitietphieugiao : dsChiTietPhieuGiao)
     {
       if (chitietphieugiao.getMaVatTu() == vattu.getMaVatu())
       {
-        totalAmount += chitietphieugiao.getSoLuongGiao();
+        result += chitietphieugiao.getSoLuongGiao();
       }
     }
-    mostSoldItems.push_back(make_pair(vattu.getMaVatu(), totalAmount));
+    mostSoldItems.push_back(make_pair(vattu.getMaVatu(), result));
   }
   sort(mostSoldItems.begin(), mostSoldItems.end(), compareSecond);
 
@@ -138,7 +139,7 @@ void ChiTietPhieuGiao::topNVattuBySL(vector<ChiTietPhieuGiao> &dsChiTietPhieuGia
   }
 }
 
-void ChiTietPhieuGiao::totalAmountByTimeRange(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao)
+void totalAmountByTimeRange(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao)
 {
   string startTime, endTime;
   cout << "Nhap thoi gian bat dau: ";

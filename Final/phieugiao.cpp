@@ -128,7 +128,7 @@ vector<PhieuGiao> PhieuGiao::remove(vector<PhieuGiao> &dsPhieuGiao)
   cin.ignore();
   cout << "Nhap so phieu giao can xoa: ";
   getline(cin, soPhieuGiao);
-  for (auto it = dsPhieuGiao.begin(); it != dsPhieuGiao.end();)
+  for (auto it = dsPhieuGiao.begin(); it != dsPhieuGiao.end(); it++)
   {
     if (it->getSoPhieuGiao() == soPhieuGiao)
     {
@@ -138,10 +138,6 @@ vector<PhieuGiao> PhieuGiao::remove(vector<PhieuGiao> &dsPhieuGiao)
       {
         file << phieugiao.getSoPhieuGiao() << "," << phieugiao.getNgayGiao() << "," << phieugiao.getNoiGiao() << "," << phieugiao.getMaKH() << endl;
       }
-    }
-    else
-    {
-      it++;
     }
   }
   return dsPhieuGiao;
