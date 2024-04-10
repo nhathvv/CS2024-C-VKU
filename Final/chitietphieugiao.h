@@ -33,7 +33,6 @@ public:
  vector<ChiTietPhieuGiao> add(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao);
  vector<ChiTietPhieuGiao> update(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao);
  vector<ChiTietPhieuGiao> remove(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao, vector<Vattu> &dsVattu, vector<PhieuGiao> &dsPhieuGiao);
-  
   void backup(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao);
   void restore(vector<ChiTietPhieuGiao> &dsChiTietPhieuGiao);
 };

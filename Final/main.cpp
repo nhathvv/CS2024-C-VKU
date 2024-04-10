@@ -5,7 +5,7 @@
 #include "vattu.h"
 #include "phieugiao.h"
 #include "chitietphieugiao.h"
-#include "functions.h"
+#include "function.h"
 using namespace std;
 int main()
 {
